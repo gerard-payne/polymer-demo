@@ -1,0 +1,34 @@
+<link rel="import" href="form-component.html">
+<link rel="import" href="/bower_components/google-map/google-map.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="main-template">
+    <template>
+        <style include="shared-styles">
+            :host {
+                display: block;
+                padding: 100px 0;
+            };
+        </style>
+
+        <h1 class="title">[[ city.name ]]</h1>
+        <form-component selected-city="{{ city }}"></form-component>
+        <google-map latitude="[[ city.lat ]]" longitude="[[ city.lng ]]" api-key="AIzaSyDcP9WRK3XDMLrg9vyn9VyS2Imz_BIagxo"></google-map>
+    </template>
+
+    <script>
+        class MainTemplate extends Polymer.Element {
+            static get is() { return "main-template"; }
+
+            static get properties() {
+                return {
+                    city: {
+                        type: Object
+                    }
+                };
+            }
+        }
+        
+        customElements.define(MainTemplate.is, MainTemplate);
+    </script>
+</dom-module>

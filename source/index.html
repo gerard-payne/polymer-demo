@@ -3,10 +3,16 @@
 	<head>
 		<title>Introduction to Google Polymer</title>
 	    <script src="https://polygit.org/components/webcomponentsjs/webcomponents-loader.js"></script>
-	    <link rel="import" href="components/form-component.html">
+	    <link rel="import" href="components/main-template.html">
+	    <link rel="import" href="components/shared-styles.html">
+  		<custom-style>
+    		<style include="shared-styles">
+      		/* Other styles in here */
+    		</style>
+  		</custom-style>
 	</head>
 
 	<body>
-	    <form-component></form-component>
+	    <main-template></main-template>
 	</body>
 </html>

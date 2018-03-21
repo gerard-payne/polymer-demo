@@ -1,10 +1,43 @@
 <!-- Import modules -->
-
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="shared-styles.html">
 <!-- Construct a dom-module with id used -->
 <dom-module id="form-component">
     <template>
-    	<!-- Add your DOM -->
-
+        <style include="shared-styles">
+            paper-item:hover {
+                cursor: pointer;
+            }
+        </style>
+        <!-- The iron-ajax  element will handle the request semantics
+            the id property will make it accessible to scripts in this component as this.$.namesRequest
+            the url determines the location of the request and on-response references the script callback
+        -->
+        <iron-ajax
+            id="cityRequest"
+            url="cities.json"
+            on-response="setCitylist"
+            auto
+        ></iron-ajax>
+        <!-- The paper-input element will provide a Material design input element
+            n.b use keyup not keypress or the value won't have been registered
+        -->
+        <paper-input
+            placeholder="Enter a city name"
+            value="{{ searchString }}"
+            on-keyup="findCity"
+        ></paper-input>
+        <!-- The HTML paragraph element contains a one-way binding to myName
+            this will update as the user types into the above input
+        -->
+        <paper-listbox selected="[[selectedCity]]" attr-for-selected="data-city" on-iron-select="setSelected">
+            <template is="dom-repeat" items="[[candidateCities]]" as="city">
+                <paper-item data-city="[[city]]">[[city.name]]</paper-item>
+            </template>
+        </paper-listbox>
     </template>
 
     <script>
@@ -12,13 +45,33 @@
         class FormComponent extends Polymer.Element {
             // Stamp template from this dom-module into element's shadow DOM
             static get is() { return "form-component"; }
-            // properties list for the component
+            // the component's internal properties,
+            // accessed in the DOM via binding {{ }} [[ ]]
+            // accessed in script via this.<propety name>
+            // can be Boolean | Number | String | Array | Object
             static get properties() {
                 return {
+                    cityList: { // list of cities returned from iron-ajax on-response
+                        type: Array
+                    },
+                    searchString: { // initially empty string which will be provided by the user
+                        type: String
+                    },
+                    candidateCities: {
+                        type: Array // selected city
+                    },
+                    selectedCity: {
+                        type: Object, // selected city
+                        notify: true
+                    }
                 };
             }
-            // function called when typing in name
-            /*findCity(eEvent) {
+            // function called by iron-ajax on-response
+            setCitylist() {
+                this.set("cityList", this.$.cityRequest.lastResponse);
+            }
+            // function called typing in name
+            findCity(eEvent) {
                 var matches = [];
                 for(let city in this.cityList) {
                     if(this.cityList.hasOwnProperty(city) 
@@ -28,7 +81,12 @@
                     }
                 }
                 this.set("candidateCities", matches);
-            }*/
+            }
+            // function called when selecting from dropdown
+            setSelected(eEvent) {
+                this.set("selectedCity", eEvent.target.selected);
+                this.set("candidateCities", [eEvent.target.selected]);
+            }
         }
         // register the component Class
         customElements.define(FormComponent.is, FormComponent);
