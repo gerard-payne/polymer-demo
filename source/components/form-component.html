@@ -1,0 +1,36 @@
+<!-- Import modules -->
+
+<!-- Construct a dom-module with id used -->
+<dom-module id="form-component">
+    <template>
+    	<!-- Add your DOM -->
+
+    </template>
+
+    <script>
+        // Define a class which extends Polymer.Element
+        class FormComponent extends Polymer.Element {
+            // Stamp template from this dom-module into element's shadow DOM
+            static get is() { return "form-component"; }
+            // properties list for the component
+            static get properties() {
+                return {
+                };
+            }
+            // function called when typing in name
+            /*findCity(eEvent) {
+                var matches = [];
+                for(let city in this.cityList) {
+                    if(this.cityList.hasOwnProperty(city) 
+                    && this.cityList[city].name.toLowerCase().indexOf(this.searchString.toLowerCase()) !== -1
+                    && matches.length < 11) {
+                        matches.push(this.cityList[city]);
+                    }
+                }
+                this.set("candidateCities", matches);
+            }*/
+        }
+        // register the component Class
+        customElements.define(FormComponent.is, FormComponent);
+    </script>
+</dom-module>

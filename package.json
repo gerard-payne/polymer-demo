@@ -1,0 +1,29 @@
+{
+  "name": "PolymerIntro",
+  "version": "2.0.0",
+  "description": "Introduction to Google Polymer",
+  "main": "Gruntfile.js",
+  "private": true,
+  "scripts": {
+    "dev": "grunt",
+    "postinstall": "grunt"
+  },
+  "dependencies": {
+    "polymer-cli": "^1.6.0"
+  },
+  "devDependencies": {
+    "bower": "^1.8.2",
+    "chromedriver": "^2.31.0",
+    "fs": "0.0.1-security",
+    "grunt": "^1.0.1",
+    "grunt-bower-task": "^0.5.0",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "require": "^2.4.20",
+    "time-grunt": "^1.4.0"
+  }
+}
