@@ -1,4 +1,5 @@
 <!-- Import modules -->
+<link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 <link rel="import" href="/bower_components/paper-item/paper-item.html">
@@ -68,6 +69,7 @@
             }
             // function called by iron-ajax on-response
             setCitylist() {
+                console.log("cityList", this.$.cityRequest.lastResponse);
                 this.set("cityList", this.$.cityRequest.lastResponse);
             }
             // function called typing in name
@@ -80,10 +82,13 @@
                         matches.push(this.cityList[city]);
                     }
                 }
+                console.log("candidateCities", matches);
                 this.set("candidateCities", matches);
             }
             // function called when selecting from dropdown
             setSelected(eEvent) {
+                console.log("selectedCity", eEvent.target.selected);
+                console.log("candidateCities", [eEvent.target.selected]);
                 this.set("selectedCity", eEvent.target.selected);
                 this.set("candidateCities", [eEvent.target.selected]);
             }
